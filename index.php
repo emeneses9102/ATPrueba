@@ -1,8 +1,10 @@
 <?php
 require_once 'controller/plantilla.controller.php';
+require_once 'controller/usuarios.controller.php';
+require_once 'controller/ventas.controller.php';
 
-//require_once 'modelo/alumnos.modelo.php';
+require_once 'model/usuarios.model.php';
+require_once 'model/ventas.model.php';
 
 $plantilla = new ControllerPlantilla();
 $plantilla->ctrPlantilla();
-//cambios 22
