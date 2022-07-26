@@ -1,0 +1,125 @@
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Versión del servidor:         10.4.17-MariaDB - mariadb.org binary distribution
+-- SO del servidor:              Win64
+-- HeidiSQL Versión:             11.3.0.6295
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+-- Volcando estructura de base de datos para atpruebabd
+CREATE DATABASE IF NOT EXISTS `atpruebabd` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE `atpruebabd`;
+
+-- Volcando estructura para tabla atpruebabd.cliente
+CREATE TABLE IF NOT EXISTS `cliente` (
+  `idCliente` int(11) NOT NULL AUTO_INCREMENT,
+  `idPlayer` varchar(15) NOT NULL DEFAULT '0',
+  `relacion_persona` int(11) NOT NULL DEFAULT 0,
+  `saldo` decimal(20,2) NOT NULL DEFAULT 0.00,
+  `estado` int(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`idCliente`),
+  UNIQUE KEY `idPlayer` (`idPlayer`),
+  KEY `FK__persona` (`relacion_persona`),
+  CONSTRAINT `FK__persona` FOREIGN KEY (`relacion_persona`) REFERENCES `persona` (`idPersona`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+
+-- Volcando datos para la tabla atpruebabd.cliente: ~8 rows (aproximadamente)
+/*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+INSERT INTO `cliente` (`idCliente`, `idPlayer`, `relacion_persona`, `saldo`, `estado`) VALUES
+	(1, '12345', 2, 0.00, 1),
+	(2, '15246', 3, 0.00, 1),
+	(4, '987684', 4, 90.00, 1),
+	(5, '4545', 5, 0.00, 1),
+	(6, '358439', 9, 120.00, 1),
+	(7, '7567', 6, 0.00, 1),
+	(8, '896345', 7, 100.00, 1),
+	(9, '986863', 8, 0.00, 1);
+/*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
+
+-- Volcando estructura para tabla atpruebabd.empleado
+CREATE TABLE IF NOT EXISTS `empleado` (
+  `idEmpleado` int(11) NOT NULL AUTO_INCREMENT,
+  `rel_persona` int(11) NOT NULL DEFAULT 0,
+  `estado` int(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`idEmpleado`),
+  KEY `FK_empleado_persona` (`rel_persona`),
+  CONSTRAINT `FK_empleado_persona` FOREIGN KEY (`rel_persona`) REFERENCES `persona` (`idPersona`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+-- Volcando datos para la tabla atpruebabd.empleado: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `empleado` DISABLE KEYS */;
+INSERT INTO `empleado` (`idEmpleado`, `rel_persona`, `estado`) VALUES
+	(1, 1, 1);
+/*!40000 ALTER TABLE `empleado` ENABLE KEYS */;
+
+-- Volcando estructura para tabla atpruebabd.persona
+CREATE TABLE IF NOT EXISTS `persona` (
+  `idPersona` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_persona` varchar(50) NOT NULL,
+  `apellido_persona` varchar(50) NOT NULL,
+  `sexo_persona` varchar(10) DEFAULT '0',
+  `documento_persona` varchar(15) NOT NULL DEFAULT '0',
+  `correo_persona` varchar(25) NOT NULL DEFAULT '0',
+  `direccion_persona` varchar(50) DEFAULT '0',
+  `telefono_persona` varchar(15) DEFAULT '0',
+  `nacionalidad_persona` varchar(15) DEFAULT '0',
+  `fechaNacimiento_persona` date NOT NULL,
+  `usuario` varchar(10) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `tipo` int(1) DEFAULT 1,
+  PRIMARY KEY (`idPersona`),
+  UNIQUE KEY `documento_persona` (`documento_persona`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+
+-- Volcando datos para la tabla atpruebabd.persona: ~8 rows (aproximadamente)
+/*!40000 ALTER TABLE `persona` DISABLE KEYS */;
+INSERT INTO `persona` (`idPersona`, `nombre_persona`, `apellido_persona`, `sexo_persona`, `documento_persona`, `correo_persona`, `direccion_persona`, `telefono_persona`, `nacionalidad_persona`, `fechaNacimiento_persona`, `usuario`, `password`, `tipo`) VALUES
+	(1, 'edgar', 'meneses', 'hombre', '47453031', 'edgarmc11@hotmail.com', 'lima peru', '928039160', 'peruano', '2022-07-06', 'admin', '$2y$10$y33sRckNc.IqhCl7W3fNQ.RmWp0MvA.IJ.dE4Wi4r0o4pfajNyzNq', 2),
+	(2, 'juan martin', 'perez flores', 'hombre', '123456789', 'juanito@gmail.com', 'lima peru', '928039160', 'peruano', '2022-07-01', 'juanito1', '', 1),
+	(3, 'pedro', 'galindo', 'hombre', '47896532', 'pedro@gmail.com', 'lima peru', '928039160', 'peruano', '2022-07-01', 'pedro123', '$2y$10$mpJvfd6aYVmZkCfKXYIwcuhW8PzstyEKz04NG61STjKvHHWBv5RRe', 1),
+	(4, 'Maria', 'Prado', 'Mujer', '489653212', 'maria@gmail.com', 'lima peru', '928039160', 'venezolana', '2022-07-01', 'maria1', '$2y$10$ksY4MZCle/5ezUKuM/4XVucQW1caC789c9hfQxV559fvCrccoThpy', 1),
+	(5, 'clara', 'rojas', 'Mujer', '48965320', 'clara@gmail.com', 'lima peru', '928039160', 'peruano', '2022-07-15', 'clara1', '$2y$10$E1nyQHVomINck3CohkKNQeUyZ2RhtHUAtmyzrUfFOrS.K.ZvVLAie', 1),
+	(6, 'maricielo', 'panduro', 'Otro', '15687565', 'marcielo@gmail.com', 'lima peru', '928039160', 'peruano', '2022-07-08', 'maricielo1', '$2y$10$e/UTeOhJA0eXKtG0WSP7MuJzLmPbCG4mFUkViB1L6cJYx63TDgp9i', 1),
+	(7, 'fabricio', 'romero', 'hombre', '787561324', 'fabricio@gmail.com', 'lima peru', '928039160', 'peruano', '2022-07-11', 'fabricio', '$2y$10$JHYywUw.EQTpWiwX7112UeEXaS9uzLOLe6RaapUbeAvACB4x/Zgcm', 1),
+	(8, 'jose', 'gimenez', 'Otro', '789456321', 'jose@gmail.com', 'lima peru', '928039160', 'peruano', '2022-06-16', 'jose1', '$2y$10$.LvLUCZYjdZmATan1b.3yOhuWJvIvogY3PXLXxMqgupb9b2wFYQO6', 1),
+	(9, 'cynthia', 'bravo', 'Mujer', '47455750', 'cynthia@gmail.com', 'lima peru', '928039160', 'peruano', '2022-07-08', 'cynthia1', '$2y$10$FB/LzqU97DdO.dry774M/.Fxf54tXzJxbh997C7XE0paY.peMw5wW', 1);
+/*!40000 ALTER TABLE `persona` ENABLE KEYS */;
+
+-- Volcando estructura para tabla atpruebabd.recargas
+CREATE TABLE IF NOT EXISTS `recargas` (
+  `idRecarga` int(11) NOT NULL AUTO_INCREMENT,
+  `monto_recarga` decimal(20,2) NOT NULL DEFAULT 0.00,
+  `fecha_recarga` datetime NOT NULL DEFAULT current_timestamp(),
+  `medioPago_recarga` varchar(50) NOT NULL DEFAULT '0',
+  `canalComunicacion_recarga` varchar(15) NOT NULL DEFAULT '0',
+  `banco_recarga` varchar(30) NOT NULL DEFAULT '0',
+  `idEmpleado` int(11) NOT NULL DEFAULT 0,
+  `idCliente` int(11) NOT NULL DEFAULT 0,
+  `codigo_recarga` varchar(20) NOT NULL,
+  PRIMARY KEY (`idRecarga`),
+  KEY `FK_recargas_empleado` (`idEmpleado`),
+  KEY `FK_recargas_cliente` (`idCliente`),
+  CONSTRAINT `FK_recargas_cliente` FOREIGN KEY (`idCliente`) REFERENCES `cliente` (`idCliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_recargas_empleado` FOREIGN KEY (`idEmpleado`) REFERENCES `empleado` (`idEmpleado`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+
+-- Volcando datos para la tabla atpruebabd.recargas: ~3 rows (aproximadamente)
+/*!40000 ALTER TABLE `recargas` DISABLE KEYS */;
+INSERT INTO `recargas` (`idRecarga`, `monto_recarga`, `fecha_recarga`, `medioPago_recarga`, `canalComunicacion_recarga`, `banco_recarga`, `idEmpleado`, `idCliente`, `codigo_recarga`) VALUES
+	(3, 50.00, '2022-07-25 23:00:00', 'Deposito', 'WHATSAPP', 'BCP', 1, 8, 'abc124'),
+	(4, 50.00, '2022-07-26 00:00:00', 'Deposito', 'WHATSAPP', 'BCP', 1, 8, 'abc124'),
+	(5, 120.00, '2022-07-26 03:39:49', 'Deposito', 'WHATSAPP', 'BCP', 1, 6, '878954'),
+	(6, 90.00, '2022-07-26 03:41:01', 'Deposito', 'WHATSAPP', 'BBVA', 1, 4, '89798');
+/*!40000 ALTER TABLE `recargas` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
