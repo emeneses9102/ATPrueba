@@ -19,11 +19,7 @@
                 </nav>
                 <h1 class="mb-0 fw-bold">Ventas</h1>
             </div>
-            <div class="col-6">
-                <div class="text-end upgrade-btn">
-                    <button type="button" onclick="openRegistrarUsuario()" class="btn btn-primary text-white" id="btnRegistrarUsuario">Registrar nuevo</button>
-                </div>
-            </div>
+            
         </div>
     </div>
     <!-- ============================================================== -->
